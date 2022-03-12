@@ -173,7 +173,7 @@ DROP VIEW V_thongTinDH
 --view 4: Tạo View có tổng số lượng sp được mua lớn hơn or = 26 
 CREATE VIEW DonHangCuaHang AS
 SELECT p.MaSP, TenSP, SUM(SLuongSPM) AS TongSoLuong FROM PRODUCTS p
-LEFT OUTER JOIN ORDER_DETAIL d ON p.MaSP = d.MaSP  
+LEFT OUTER JOIN ORDER_DETAIL od ON p.MaSP = od.MaSP  
 GROUP BY p.MaSP, TenSP
 HAVING SUM(SLuongSPM) >= 26
 GO
@@ -182,9 +182,9 @@ SELECT * FROM DonHangCuaHang
 DROP VIEW DonHangCuaHang
 --view 5: Tạo View có khách hàng thanh toán bằng phương thức Internet Banking 
 CREATE VIEW Phuongthucthanhtoan AS
-SELECT p.MaKH, c.HoTen, c.DiaChi FROM ORDERS p
-LEFT OUTER JOIN PAYMENTSS m ON p.MaPTTT = m.MaPTTT
-LEFT OUTER JOIN CUSTOMERS c ON p.MaKH = c.MaKH
+SELECT o.MaKH, c.HoTen, c.DiaChi FROM ORDERS o
+LEFT OUTER JOIN PAYMENTSS p ON o.MaPTTT = p.MaPTTT
+LEFT OUTER JOIN CUSTOMERS c ON o.MaKH = c.MaKH
 WHERE TenPTTT LIKE 'Thanh toan qua Internet Banking'
 GO
 
